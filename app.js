@@ -24,7 +24,7 @@ app.get("/PatientLogin",function(req,res){
     res.render("loginPatient");
 });
 app.get("/AdminLogin",function(req,res){
-    res.render("loginAdmin");
+    res.render("AdminPage");
 })
 
 app.listen(3000, function() {
