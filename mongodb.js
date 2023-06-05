@@ -1,21 +1,25 @@
 const mongoose=require("mongoose");
 mongoose.set("strictQuery",false);
-mongoose.connect("mongodb://localhost:27017/Clinic")
+mongoose.connect("mongodb+srv://abotalebwattad:4OJ55GWlJdFRVSHD@cluster0.nawcxhq.mongodb.net/Clinc")
 .then(function(){
     console.log("mongodb connected")
 })
 .catch(function(){
     console.log("faild to connect");
 });
-const Admin1Schema=new mongoose.Schema({
-   name:"Mohammed Dabbah",
-   username:"MD422002",
-   password:"Mohammed@2002"
-})
-const Admin2Schema=new mongoose.Schema({
-    name:"Mohammed Wattad",
-    username:"Wattad321",
-    password:"Wat@21"
+const AdminsSchema=new mongoose.Schema({
+    name:{
+        type:String,
+        required:true
+    },
+    username:{
+        type:String,
+        required:true
+    },
+    password:{
+        type:String,
+        required:true
+    }
  })
  
 const SignupPatientSchema=new mongoose.Schema({
@@ -45,10 +49,6 @@ const SignupPatientSchema=new mongoose.Schema({
     password:{
         type:String,
         required:true
-    },
-    confirmPassword:{
-        type:String,
-        require:true
     }
 });
 
@@ -79,20 +79,15 @@ const SignupDoctortSchema=new mongoose.Schema({
     password:{
         type:String,
         required:true
-    },
-    confirmPassword:{
-        type:String,
-        require:true
     }
 });
 
-const SignupPatient=new mongoose.model("SignUpDoctor",SignupPatientSchema);
-const Admin1=new mongoose.model("Admin1",Admin1Schema);
-const Admin2=new mongoose.model("Admin2",Admin2Schema);
+const SignupPatient=new mongoose.model("SignUpPatient",SignupPatientSchema);
+const Admins=new mongoose.model("Admins",AdminsSchema);
 const SignUpDoctor=new mongoose.model("SignUpDoctor",SignupDoctortSchema);
 module.exports={
     SignupPatient,
-    Admin1,
-    Admin2,
+    Admins,
     SignUpDoctor
 }
+
