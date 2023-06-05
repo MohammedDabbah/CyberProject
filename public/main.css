@@ -1,0 +1,32 @@
+h6{
+    margin-top: 1%;
+    color: gray;
+}
+.nav-item{
+    padding:3% 0 ;
+}
+.title-image{
+    width: 60%;
+    margin:10% 0 0 35%;
+    border-radius: 100%;
+}
+.big-heading{
+    padding: 30% 0 0 2%;
+    line-height: 1rem;
+    font-family: "Shadows Into Light";
+}
+.pr{
+    padding: 4% 0 0 2%; 
+    font-family: "Anton";
+}
+.end{
+    padding: 3% 0 0 0;
+   text-align: center;
+}
+.contact{
+    text-align: center;
+    margin-top: 10%;
+}
+.social{
+    padding: 0 1%;
+}
