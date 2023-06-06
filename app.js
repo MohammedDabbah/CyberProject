@@ -7,6 +7,7 @@ const  SignUpDoctor=require("./mongodb");
 
 
 var arr=[];
+let flag=false;
 
 const app=express();
 app.use(express.static("public"));
@@ -34,6 +35,7 @@ app.get("/AdminPage",async function(req,res){
     let check1= await Admins.Admins.findOne({username:arr[0],password:arr[1]});
     if(check1){
         console.log(check1);
+        flag=true;
         res.render("AdminPage",{name:check1.name, username:check1.username});
     }
 })
@@ -46,7 +48,8 @@ app.post("/loginAdmin",function(req,res){
     res.redirect("/AdminPage");
 })
 app.get("/AdminPage/signup",function(req,res){
-    res.render("signup",{message:""});
+  if(flag){
+    res.render("signup",{message:""});}
 })
 app.post("/signup",async function(req,res){
   let data={
