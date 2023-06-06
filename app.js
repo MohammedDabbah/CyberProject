@@ -47,6 +47,22 @@ app.post("/loginAdmin",function(req,res){
     console.log(arr[1]);
     res.redirect("/AdminPage");
 })
+app.get("/DoctorPage",async function(req,res){
+  let check1=await SignUpDoctor.SignUpDoctor.findOne({username:arr[0],password:arr[1]});
+  if(check1){
+    res.render("DoctorPage",{name:check1.name,specialties:check1.specialties});
+  }else{
+    res.send("error");
+  }
+})
+app.post("/loginDoctor",function(req,res){
+  arr=[];
+  arr.push(req.body.userName);
+  arr.push(req.body.password);
+  console.log(arr[0]);
+  console.log(arr[1]);
+  res.redirect("/DoctorPage");
+})
 app.get("/AdminPage/signup",function(req,res){
   if(flag){
     res.render("signup",{message:""});}
@@ -57,6 +73,7 @@ app.post("/signup",async function(req,res){
     _id:req.body.id,
     birth:req.body.birthBox,
     gender:req.body.flexRadioDefault,
+    specialties:req.body.specialties,
     username:req.body.username,
     email:req.body.Email,
     password:req.body.password

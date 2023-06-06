@@ -68,6 +68,9 @@ const SignupDoctortSchema=new mongoose.Schema({
         type:String,
         required:true
     },
+    specialties:{
+        type:String  
+      },
     username:{
         type:String,
         required:true
