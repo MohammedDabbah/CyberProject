@@ -20,13 +20,13 @@ app.use(express.urlencoded({extended:false}));
 app.get("/",function(req,res){
     res.render("home");
 })
-app.get("/DoctorLogin",function(req,res){
+app.get("/loginDoctor",function(req,res){
     res.render("loginDoctor");
 });
-app.get("/PatientLogin",function(req,res){
+app.get("/loginPatient",function(req,res){
     res.render("loginPatient");
 });
-app.get("/AdminLogin",function(req,res){
+app.get("/loginAdmin",function(req,res){
     res.render("loginAdmin");
 })
 
@@ -45,10 +45,10 @@ app.post("/loginAdmin",function(req,res){
     console.log(arr[1]);
     res.redirect("/AdminPage");
 })
-app.get("/signup",function(req,res){
-    res.render("signup");
+app.get("/AdminPage/signup",function(req,res){
+    res.render("signup",{message:""});
 })
-app.post("/signupDoctor",async function(req,res){
+app.post("/signup",async function(req,res){
   let data={
     name:req.body.name,
     _id:req.body.id,
@@ -58,15 +58,23 @@ app.post("/signupDoctor",async function(req,res){
     email:req.body.Email,
     password:req.body.password
   }
-
   if(checkPasswordStrength(data.password))
   {
-    await SignUpDoctor.SignUpDoctor.insertMany([data]);
-    res.render("signup",{txt:"Sign Up Succesfully"});
+    if(data.password===req.body.confirmPassword){
+        await SignUpDoctor.SignUpDoctor.insertMany([data]);
+        res.render("signup",{message:"Sign Up Succesfully"});
+    }else{
+        res.render("signup",{message:"Password unmatch!"});
+    }
   }else{
-    res.render("signup",{txt:"Password must contain specialChar ,numbers ,lowercase, uppercase. "});
+    res.render("signup",{message:"Password must contain specialChar ,numbers ,small letter, big letter. "});
   }
 })
+
+app.post("/loginDoctor",async function(req,res){
+
+})
+
 
 
 
