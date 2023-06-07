@@ -4,7 +4,7 @@ const ejs =require("ejs");
 const assert=require("assert");
 const Admins = require ("./mongodb");
 const  SignUpDoctor=require("./mongodb");
-const { generateRandomCode, SendMail } = require("./send");
+const { generateRandomCode, SendMail,generateRandomPassword,checkPasswordStrength } = require("./send");
 
 
 var arr=[];
