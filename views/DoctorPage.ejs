@@ -16,8 +16,59 @@
                             <span class="job_post">Doctor</span>
                             <p><%=specialties%></p>
                             <div>
-                                <button class="btn btn-primary btn-round">Add a new patient</button>
-                                <button class="btn btn-primary btn-round btn-simple">Update patient test</button>
+                                <button onclick="ShowSignUp()" class="btn btn-primary btn-round">Add a new patient</button>
+                                <%if(showSignUp) { %>
+                                    <h1>
+                                        <head>asdd</head> 
+                                    </h1>
+
+                                    <% } %>
+
+                                <script>
+                                    function ShowSignUp() {
+                                      window.location.href = '/ShowSignUp';
+                                    }
+                                  </script>
+                                <button onclick="showTable()" class="btn btn-primary btn-round btn-simple">Update patient test</button>
+                                <% if (showTable) { %>
+                                    <table class="table">
+                                        <thead>
+                                          <tr>
+                                            <th scope="col">ID</th>
+                                            <th scope="col">Name</th>
+                                            <th scope="col">Appointment meeting </th>
+                                            <th scope="col">kind of medical examination </th>
+                                          </tr>
+                                        </thead>
+                                        <tbody>
+                                          <tr>
+                                            <td >
+                                                <select class="form-select input-box" aria-label="Default select example" name="specialties" width="10" highet="10">
+                                                    <option selected>Open this select menu</option>
+                                                    
+                                                    <option value="Internal medicine">Internal medicine</option>
+                                                </select>
+                                            </td>
+                                            <td>Mark</td>
+                                            <td>Otto</td>
+                                            <td>@mdo</td>
+                                          </tr>
+                                          <tr>
+                                            <th scope="row">2</th>
+                                            <td>Jacob</td>
+                                            <td>Thornton</td>
+                                            <td>@fat</td>
+                                          </tr>
+                                        </tbody>
+                                      </table>
+                                <% } %>
+                            
+                            
+                                <script>
+                                  function showTable() {
+                                    window.location.href = '/show-table';
+                                  }
+                                </script>
                             </div>
                             <!-- <p class="social-icon m-t-5 m-b-0">
                                 <a title="Twitter" href="javascript:void(0);"><i class="fa fa-twitter"></i></a>

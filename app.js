@@ -9,6 +9,7 @@ const { generateRandomCode, SendMail,generateRandomPassword,checkPasswordStrengt
 
 var arr=[];
 let flag=false;
+var items=[];
 
 const app=express();
 app.use(express.static("public"));
@@ -61,7 +62,7 @@ app.get("/varification",async function(req,res){
 
 app.post("/varification",function(req,res){
   if(code===req.body.verifyCode){
-    res.render("DoctorPage",{name:check1.name,specialties:check1.specialties});
+    res.render("DoctorPage",{name:check1.name,specialties:check1.specialties,showTable:false,showSignUp:false});
   }
 });
 
@@ -102,6 +103,12 @@ app.post("/signup",async function(req,res){
   }else{
     res.render("signup",{message:"Password must contain specialChar ,numbers ,small letter, big letter. "});
   }
+});
+app.get('/show-table', (req, res) => {
+  res.render('DoctorPage', { showTable: true,name:check1.name,specialties:check1.specialties,showSignUp:false }); // Render the view with showTable set to true
+});
+app.get('/ShowSignUp', (req, res) => {
+  res.render('DoctorPage', { showSignUp: true,name:check1.name,specialties:check1.specialties,showTable:false  }); // Render the view with showTable set to true
 });
 
 
