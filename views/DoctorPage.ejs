@@ -15,70 +15,154 @@
                             <h4 class="m-t-0 m-b-0"><strong><%=name%></strong></h4>
                             <span class="job_post">Doctor</span>
                             <p><%=specialties%></p>
-                            <div>
-                                <button onclick="ShowSignUp()" class="btn btn-primary btn-round">Add a new patient</button>
-                                <%if(showSignUp) { %>
-                                    <h1>
-                                        <head>asdd</head> 
-                                    </h1>
-
-                                    <% } %>
-
-                                <script>
-                                    function ShowSignUp() {
-                                      window.location.href = '/ShowSignUp';
-                                    }
-                                  </script>
-                                <button onclick="showTable()" class="btn btn-primary btn-round btn-simple">Update patient test</button>
-                                <% if (showTable) { %>
-                                    <table class="table">
-                                        <thead>
-                                          <tr>
-                                            <th scope="col">ID</th>
-                                            <th scope="col">Name</th>
-                                            <th scope="col">Appointment meeting </th>
-                                            <th scope="col">kind of medical examination </th>
-                                          </tr>
-                                        </thead>
-                                        <tbody>
-                                          <tr>
-                                            <td >
-                                                <select class="form-select input-box" aria-label="Default select example" name="specialties" width="10" highet="10">
-                                                    <option selected>Open this select menu</option>
-                                                    
-                                                    <option value="Internal medicine">Internal medicine</option>
-                                                </select>
-                                            </td>
-                                            <td>Mark</td>
-                                            <td>Otto</td>
-                                            <td>@mdo</td>
-                                          </tr>
-                                          <tr>
-                                            <th scope="row">2</th>
-                                            <td>Jacob</td>
-                                            <td>Thornton</td>
-                                            <td>@fat</td>
-                                          </tr>
-                                        </tbody>
-                                      </table>
-                                <% } %>
                             
-                            
-                                <script>
-                                  function showTable() {
-                                    window.location.href = '/show-table';
-                                  }
-                                </script>
-                            </div>
-                            <!-- <p class="social-icon m-t-5 m-b-0">
-                                <a title="Twitter" href="javascript:void(0);"><i class="fa fa-twitter"></i></a>
-                                <a title="Facebook" href="javascript:void(0);"><i class="fa fa-facebook"></i></a>
-                                <a title="Google-plus" href="javascript:void(0);"><i class="fa fa-twitter"></i></a>
-                                <a title="Behance" href="javascript:void(0);"><i class="fa fa-behance"></i></a>
-                                <a title="Instagram" href="javascript:void(0);"><i class="fa fa-instagram "></i></a>
-                            </p> -->
+                
                         </div>                
                     </div>
                 </div>                    
             </div>
         </div>
+        <div>
+          <div>
+          <button onclick="ShowSignUp()" class="btn btn-primary btn-round">Add a new patient</button>
+          <button onclick="showTable()" class="btn btn-primary btn-round btn-simple">Update patient test</button>
+        </div>
+          <%if(showSignUp) { %>
+            <section class="vh-100 gradient-custom">
+              <div class="container py-5 h-100">
+                <div class="row justify-content-center align-items-center h-100">
+                  <div class="col-12 col-lg-9 col-xl-7">
+                    <div class="card shadow-2-strong card-registration" style="border-radius: 15px;">
+                      <div class="card-body p-4 p-md-5">
+                        <h3 class="mb-4 pb-2 pb-md-0 mb-md-5">Registration Form</h3>
+                        <form action="/signupPatient" method="post">
+            
+                          <div class="row">
+                            <div class="col-md-6 mb-4">
+            
+                              <div class="form-outline">
+                                <input type="text" id="firstName" name="fullName" class="form-control form-control-lg"required />
+                                <label class="form-label" for="firstName">Full Name</label>
+                              </div>
+            
+                            </div>
+                            <div class="col-md-6 mb-4">
+            
+                              <div class="form-outline">
+                                <input type="text" id="lastName" name="username" class="form-control form-control-lg"required />
+                                <label class="form-label" for="lastName">username</label>
+                              </div>
+            
+                            </div>
+                          </div>
+            
+                          <div class="row">
+                            <div class="col-md-6 mb-4 d-flex align-items-center">
+            
+                              
+                              <div>
+                                <label for="birthdayDate" class="form-label">Birthday</label><br>
+                                <input class="birth-box select form-control-lg" type="date" min="1975-12-15" max="2050-08-26" step="1" required name="birthBox">
+                               </div>
+            
+                            </div>
+                            <div class="col-md-6 mb-4">
+            
+                              <h6 class="mb-2 pb-1">Gender: </h6>
+            
+                              <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="radio" name="inlineRadioOptions" id="femaleGender"
+                                  value="Female" checked />
+                                <label class="form-check-label" for="femaleGender">Female</label>
+                              </div>
+            
+                              <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="radio" name="inlineRadioOptions" id="maleGender"
+                                  value="Male" />
+                                <label class="form-check-label" for="maleGender">Male</label>
+            
+                            </div>
+                          </div>
+            
+                          <div class="row">
+                            <div class="col-md-6 mb-4 pb-2">
+            
+                              <div class="form-outline">
+                                <input type="email" id="emailAddress" class="form-control form-control-lg" required  name="mail"/>
+                                <label class="form-label" for="emailAddress">Email</label>
+                                <div>
+                                  <h5 class="mb-4 pb-2 pb-md-0 mb-md-5">The patient will get his passcode from this mail.</h5>
+                                </div>
+                              </div>
+            
+                            </div>
+                            <div class="col-md-6 mb-4 pb-2">
+            
+                              <div class="form-outline">
+                                <input type="text" class="form-control form-control-lg"required name="ID"/>
+                                <label class="form-label">ID</label>
+                              </div>
+                              
+                            </div>
+                            <div class="mt-4 pt-2">
+                              <input class="btn btn-primary btn-lg" type="submit" value="Submit" />
+                            </div>
+                          </div>
+            
+                         
+            
+                        </form>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </section>
+              <% } %>
+
+          <script>
+              function ShowSignUp() {
+                window.location.href = '/ShowSignUp';
+              }
+            </script>
+         
+          <% if (showTable) { %>
+              <table class="table">
+                  <thead>
+                    <tr>
+                      <th scope="col">ID</th>
+                      <th scope="col">Name</th>
+                      <th scope="col">Appointment meeting </th>
+                      <th scope="col">kind of medical examination </th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <form action="/show-table" method="post">
+                      <td >
+                          <select class="form-select input-box" aria-label="Default select example" name="id" width="10" highet="10">
+                            <%patientId.forEach(function(patient){%>
+                              <option selected><%=patient._id%></option>
+                              <% });%>
+                          
+    
+                          </select>
+                      </td>
+        
+                       <td><%=patientName%></td>
+                      <td>  <input class="birth-box select form-control-lg" type="date" min="1975-12-15" max="2050-08-26" step="1" required name="date"></td>
+                      <td> <input type="text" class="form-control form-control-lg"required name="medical" /></td>
+                      <td><input type="submit" class="form-control form-control-lg  btn btn-outline-primary"></td>
+                    </form>
+                    </tr>
+                  </tbody>
+                </table>
+          <% } %>
+      
+      
+          <script>
+            function showTable() {
+              window.location.href = '/show-table';
+            }
+          </script>
+      </div>

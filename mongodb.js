@@ -49,7 +49,8 @@ const SignupPatientSchema=new mongoose.Schema({
     password:{
         type:String,
         required:true
-    }
+    },
+    ar:[]
 });
 
 const SignupDoctortSchema=new mongoose.Schema({
@@ -85,11 +86,11 @@ const SignupDoctortSchema=new mongoose.Schema({
     }
 });
 
-const SignupPatient=new mongoose.model("SignUpPatient",SignupPatientSchema);
+const SignUpPatient=new mongoose.model("SignUpPatient",SignupPatientSchema);
 const Admins=new mongoose.model("Admins",AdminsSchema);
 const SignUpDoctor=new mongoose.model("SignUpDoctor",SignupDoctortSchema);
 module.exports={
-    SignupPatient,
+    SignUpPatient,
     Admins,
     SignUpDoctor
 }

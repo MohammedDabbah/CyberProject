@@ -54,11 +54,11 @@ function generateRandomCode(length) {
 //   const randomCode = generateRandomCode(8);
 //   console.log(randomCode);
 
-function SendMail(mail,message){
+function SendMail(mail,message,sub){
     const mailOptions={
         from:"mwattad232@gmail.com",
         to:mail,
-        subject:"Verification Code",
+        subject:sub,
         html: message
     };
     transporter.sendMail(mailOptions,function(error,info){
