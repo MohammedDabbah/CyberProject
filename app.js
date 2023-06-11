@@ -8,6 +8,7 @@ const SignUpPatient=require("./mongodb");
 const { generateRandomCode, SendMail,generateRandomPassword,checkPasswordStrength } = require("./send");
 const { add } = require("nodemon/lib/rules");
 const session = require('express-session');
+const { Console } = require("console");
 // const cookieParser = require('cookie-parser');
 
 
@@ -79,7 +80,7 @@ app.get("/varification",async function(req,res){
 
 app.post("/varification",function(req,res){
   if(code===req.body.verifyCode){
-    res.render("DoctorPage",{name:check1.name,specialties:check1.specialties,showTable:false,showSignUp:false,patientName:"",patientId:""});
+    res.render("DoctorPage",{name:check1.name,specialties:check1.specialties,showTable:false,showSignUp:false,patientId:""});
   }else{
     res.render("varification",{message:"incorrect Code varification"});
   }
@@ -130,17 +131,24 @@ app.post("/signup",async function(req,res){
 });
 app.get('/show-table',async(req, res) => {
   const IDs=await SignUpPatient.SignUpPatient.find({});
-  res.render('DoctorPage', { showTable: true,name:check1.name,specialties:check1.specialties,showSignUp:false,patientName:"",patientId:IDs }); // Render the view with showTable set to true
+  res.render('DoctorPage', { showTable: true,name:check1.name,specialties:check1.specialties,showSignUp:false,patientId:IDs }); // Render the view with showTable set to true
 });
 app.post("/show-table",async function(req,res){
-  const adder=await SignUpPatient.SignUpPatient.findOne({_id:req.body.id});
+  let N=req.body.id;
+  let C="";
+
+  for(var i=0;i<9;i++){
+    C+=N[i];
+  }
+  console.log(C);
+  const adder=await SignUpPatient.SignUpPatient.findOne({_id:C});
   adder.ar.push(req.body.date);
   adder.ar.push(req.body.medical);
   adder.save();
   res.redirect("/show-table")
 });
 app.get('/ShowSignUp', async(req, res) => {
-  res.render('DoctorPage', { showSignUp: true,name:check1.name,specialties:check1.specialties,showTable:false,patientName:"" ,patientId:"" }); // Render the view with showTable set to true
+  res.render('DoctorPage', { showSignUp: true,name:check1.name,specialties:check1.specialties,showTable:false ,patientId:"" }); // Render the view with showTable set to true
 });
 
 
@@ -157,7 +165,7 @@ app.post("/signupPatient",async function(req,res){
     password:pass
   }
         await SignUpPatient.SignUpPatient.insertMany([data]);
-        res.render('DoctorPage', { showSignUp: true,name:check1.name,specialties:check1.specialties,showTable:false,patientName:"" ,patientId:"" }); // Render the view with showTable set to true
+        res.render('DoctorPage', { showSignUp: true,name:check1.name,specialties:check1.specialties,showTable:false ,patientId:"" }); // Render the view with showTable set to true
       });
 
 
