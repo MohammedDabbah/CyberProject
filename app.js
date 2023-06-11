@@ -7,6 +7,9 @@ const  SignUpDoctor=require("./mongodb");
 const SignUpPatient=require("./mongodb");
 const { generateRandomCode, SendMail,generateRandomPassword,checkPasswordStrength } = require("./send");
 const { add } = require("nodemon/lib/rules");
+const session = require('express-session');
+// const cookieParser = require('cookie-parser');
+
 
 
 var arr=[];
@@ -14,42 +17,53 @@ let flag=false;
 var items=[];
 
 const app=express();
+
+app.use(session({
+  secret:"some secret",
+  cookie:{maxAge:30000},
+  saveUninitialized:false
+}));
+
 app.use(express.static("public"));
 app.use(express.json());
 app.set('view engine','ejs');
 let code="";
-let check1;
+var check1;
 let pass='';
+
 app.use(bodyParser.urlencoded({extended:true}));
 app.use(express.urlencoded({extended:false}));
+
+
 
 app.get("/",function(req,res){
     res.render("home");
 })
 app.get("/loginDoctor",function(req,res){
-    res.render("loginDoctor");
+    res.render("loginDoctor",{message:""});
 });
 app.get("/loginPatient",function(req,res){
     res.render("loginPatient");
 });
 app.get("/loginAdmin",function(req,res){
-    res.render("loginAdmin");
+    res.render("loginAdmin",{message:""});
 })
 
 app.get("/AdminPage",async function(req,res){
-    let check1= await Admins.Admins.findOne({username:arr[0],password:arr[1]});
+  
+ console.log(check1);
     if(check1){
-        console.log(check1);
         flag=true;
         res.render("AdminPage",{name:check1.name, username:check1.username});
+    }else{
+      res.render("loginAdmin",{message:"wrong username or password!. "})
     }
 })
-app.post("/loginAdmin",function(req,res){
+app.post("/loginAdmin",async function(req,res){
     arr=[];
     arr.push(req.body.userName);
     arr.push(req.body.password);
-    console.log(arr[0]);
-    console.log(arr[1]);
+    check1= await Admins.Admins.findOne({username:arr[0],password:arr[1]});
     res.redirect("/AdminPage");
 })
 app.get("/varification",async function(req,res){
@@ -57,15 +71,17 @@ app.get("/varification",async function(req,res){
   if(check1){
      code=generateRandomCode(4);
     SendMail(check1.email,code,"Your Code varification! ");
-    res.render("varification");
+    res.render("varification",{message:""});
   }else{
-    res.send("error");
+    res.render("loginDoctor",{message:"wrong username or password!. "});
   }
 });
 
 app.post("/varification",function(req,res){
   if(code===req.body.verifyCode){
     res.render("DoctorPage",{name:check1.name,specialties:check1.specialties,showTable:false,showSignUp:false,patientName:"",patientId:""});
+  }else{
+    res.render("varification",{message:"incorrect Code varification"});
   }
 });
 
@@ -83,8 +99,22 @@ app.get("/AdminPage/signup",function(req,res){
   if(flag){
     res.render("signup",{message:""});}
 });
+// app.post("/logout",function(req,res){
+//   check1=null;
+//   req.session.destroy((err) => {
+//     if (err) {
+//       console.error('Error destroying session:', err);
+//     }
+//     // Redirect to the login page or any other desired destination
+//     res.clearCookie('loginAdmin');
+//     res.redirect("/");
+//   });
+  
+// });
 
 app.post("/signup",async function(req,res){
+  pass=generateRandomPassword(8);
+  SendMail(req.body.Email,pass,"this is your password and you can change it later.. ")
   let data={
     name:req.body.name,
     _id:req.body.id,
@@ -93,19 +123,10 @@ app.post("/signup",async function(req,res){
     specialties:req.body.specialties,
     username:req.body.username,
     email:req.body.Email,
-    password:req.body.password
+    password:pass
   }
-  if(checkPasswordStrength(data.password))
-  {
-    if(data.password===req.body.confirmPassword){
         await SignUpDoctor.SignUpDoctor.insertMany([data]);
         res.render("signup",{message:"Sign Up Succesfully"});
-    }else{
-        res.render("signup",{message:"Password unmatch!"});
-    }
-  }else{
-    res.render("signup",{message:"Password must contain specialChar ,numbers ,small letter, big letter. "});
-  }
 });
 app.get('/show-table',async(req, res) => {
   const IDs=await SignUpPatient.SignUpPatient.find({});
@@ -138,6 +159,24 @@ app.post("/signupPatient",async function(req,res){
         await SignUpPatient.SignUpPatient.insertMany([data]);
         res.render('DoctorPage', { showSignUp: true,name:check1.name,specialties:check1.specialties,showTable:false,patientName:"" ,patientId:"" }); // Render the view with showTable set to true
       });
+
+
+
+
+app.delete("logout",function(req,res){
+  req.logout(req.user  ,function(err){
+    if(err){
+      return next(err);
+    }
+    res.redirect("/")
+  });
+
+})
+
+app.post("/resend",function(req,res){
+  res.redirect("varification");
+})
+
 
 
 app.listen(3284, function() {
