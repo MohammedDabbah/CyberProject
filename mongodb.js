@@ -86,6 +86,7 @@ const SignupDoctortSchema=new mongoose.Schema({
     }
 });
 
+
 const SignUpPatient=new mongoose.model("SignUpPatient",SignupPatientSchema);
 const Admins=new mongoose.model("Admins",AdminsSchema);
 const SignUpDoctor=new mongoose.model("SignUpDoctor",SignupDoctortSchema);
@@ -94,4 +95,4 @@ module.exports={
     Admins,
     SignUpDoctor
 }
-
+ 

@@ -15,10 +15,10 @@
     <h2>Sign Up</h2>
     <form action="/signup" method="post">
       <div class="input-box">
-        <input type="text" placeholder="Enter your name" required name="name"  autocomplete="off">
+        <input type="text" placeholder="Enter name" required name="name"  autocomplete="off">
       </div>
       <div class="input-box">
-        <input type="id" placeholder="ID" required name="id" autocomplete="off" minlength="9">
+        <input type="id" placeholder="ID" required name="id" autocomplete="off" minlength="9" maxlength="9">
       </div>
       <div>
          <input class="birth-box" type="date" min="1975-12-15" max="2050-08-26" step="1" required name="birthBox">

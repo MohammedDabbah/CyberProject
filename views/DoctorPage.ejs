@@ -24,8 +24,10 @@
         </div>
         <div>
           <div>
+            <a href="/logoutDoctor" class="btn btn-outline-primary px-4 ms-3">Logout</a>
           <button onclick="ShowSignUp()" class="btn btn-primary btn-round">Add a new patient</button>
           <button onclick="showTable()" class="btn btn-primary btn-round btn-simple">Update patient test</button>
+          
         </div>
           <%if(showSignUp) { %>
             <section class="vh-100 gradient-custom">
@@ -41,7 +43,7 @@
                             <div class="col-md-6 mb-4">
             
                               <div class="form-outline">
-                                <input type="text" id="firstName" name="fullName" class="form-control form-control-lg"required />
+                                <input type="text" id="firstName" name="fullName" class="form-control form-control-lg"required autocomplete="off"/>
                                 <label class="form-label" for="firstName">Full Name</label>
                               </div>
             
@@ -49,7 +51,7 @@
                             <div class="col-md-6 mb-4">
             
                               <div class="form-outline">
-                                <input type="text" id="lastName" name="username" class="form-control form-control-lg"required />
+                                <input type="text" id="lastName" name="username" class="form-control form-control-lg"required autocomplete="off" />
                                 <label class="form-label" for="lastName">username</label>
                               </div>
             
@@ -88,7 +90,7 @@
                             <div class="col-md-6 mb-4 pb-2">
             
                               <div class="form-outline">
-                                <input type="email" id="emailAddress" class="form-control form-control-lg" required  name="mail"/>
+                                <input type="email" id="emailAddress" class="form-control form-control-lg" required  name="mail" autocomplete="off"/>
                                 <label class="form-label" for="emailAddress">Email</label>
                                 <div>
                                   <h5 class="mb-4 pb-2 pb-md-0 mb-md-5">The patient will get his passcode from this mail.</h5>
@@ -99,7 +101,7 @@
                             <div class="col-md-6 mb-4 pb-2">
             
                               <div class="form-outline">
-                                <input type="text" class="form-control form-control-lg"required name="ID" maxlength="9" minlength="9"/>
+                                <input type="text" class="form-control form-control-lg"required name="ID" maxlength="9" minlength="9" autocomplete="off"/>
                                 <label class="form-label">ID</label>
                               </div>
                               
@@ -107,6 +109,7 @@
                             <div class="mt-4 pt-2">
                               <input class="btn btn-primary btn-lg" type="submit" value="Submit" />
                             </div>
+                            <div class="input-box" style="color: red;"><%=message%></div>
                           </div>
             
                          
@@ -164,4 +167,5 @@
               window.location.href = '/show-table';
             }
           </script>
+          
       </div>
